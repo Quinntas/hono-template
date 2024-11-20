@@ -1,7 +1,7 @@
-import {Hono} from 'hono'
 import {v1Router} from "./router.ts";
+import {createRouter} from "../lib/router.ts";
 
-export const app = new Hono({strict: true})
+export const app = createRouter()
 
 app.notFound((c) => c.text('Not Found', 404))
 

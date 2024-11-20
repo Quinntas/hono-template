@@ -1,10 +1,10 @@
 import type {DTO} from "../../../../lib/dto.ts";
 
-export interface UserCreateDTO extends DTO {
+export type UserCreateDTO = DTO<{
     email: string
     password: string
-}
+}>
 
-export interface UserCreateResponseDTO extends DTO {
+export type UserCreateResponseDTO = DTO<{
     message: 'User created successfully'
-}
+}>

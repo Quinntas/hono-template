@@ -1,3 +1,1 @@
-export interface DTO {
-    
-}
+export type DTO<T = unknown> = T
