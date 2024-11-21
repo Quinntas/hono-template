@@ -3,7 +3,7 @@ import {HTTPException} from "hono/http-exception";
 import {decode} from "hono/jwt";
 import {getUserWithEmail} from "../../infra/user.repository.ts";
 
-export const authenticationMiddleware = createMiddleware(async (c, next) => {
+export const userAuthenticationMiddleware = createMiddleware(async (c, next) => {
     const token = c.req.header('Authorization')
 
     if (!token)

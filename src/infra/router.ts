@@ -6,6 +6,7 @@ import {timing, type TimingVariables} from "hono/timing";
 import {userRouter} from "../modules/user/application/user.router.ts";
 import {createRouter} from "../lib/router.ts";
 import {loggerMiddleware} from "../modules/shared/application/middlewares/logger.middleware.ts";
+import {healthController} from "../modules/shared/resources/health/health.controller.ts";
 
 export type Variables = RequestIdVariables & TimingVariables
 
@@ -18,10 +19,6 @@ v1Router.use(requestId())
 v1Router.use(timing())
 v1Router.use(loggerMiddleware)
 
-v1Router.get("/", (c) => {
-    return c.json({
-        hello: "world"
-    })
-})
+v1Router.get("/", ...healthController)
 
 v1Router.route('/', userRouter)
