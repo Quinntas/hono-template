@@ -1,6 +1,15 @@
 import {createCommand} from "../../../../lib/command.ts";
-import type {UserCreateDTO, UserCreateResponseDTO} from "./user.create.dto.ts";
 import {createUser} from "../../infra/user.repository.ts";
+import type {DTO} from "../../../../lib/dto.ts";
+
+export type UserCreateDTO = DTO<{
+    email: string
+    password: string
+}>
+
+export type UserCreateResponseDTO = DTO<{
+    message: 'User created successfully'
+}>
 
 export const userCreateCommand = createCommand<UserCreateDTO, UserCreateResponseDTO>(
     async (dto) => {

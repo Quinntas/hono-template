@@ -1,7 +1,13 @@
 import {createCommand} from "../../../../lib/command.ts";
-import type {HealthDTO, HealthResponseDTO} from "./health.dto.ts";
+import type {DTO} from "../../../../lib/dto.ts";
 
-export const healthCommand = createCommand<HealthDTO, HealthResponseDTO>(
+export type HealthResponseDTO = DTO<{
+    uptime: number
+    message: 'Ok'
+    date: Date
+}>
+
+export const healthCommand = createCommand<void, HealthResponseDTO>(
     () => {
         return {
             uptime: process.uptime(),

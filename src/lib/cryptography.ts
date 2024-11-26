@@ -1,14 +1,12 @@
 import {createHash, pbkdf2Sync, randomBytes, timingSafeEqual} from 'node:crypto'
 
-export interface ParsedEncryptedData {
-    data: string;
-    salt: string;
-    iterations: number;
-}
-
 export namespace Cryptography {
     export function compareString(a: string, b: string): boolean {
-        return timingSafeEqual(Uint8Array.from(Buffer.from(a)), Uint8Array.from(Buffer.from(b)))
+        try {
+            return timingSafeEqual(Uint8Array.from(Buffer.from(a)), Uint8Array.from(Buffer.from(b)))
+        } catch {
+            return false
+        }
     }
 
     export function compareEncryptedData(encryptedData: string, data: string, pepper: string): boolean {
@@ -31,7 +29,7 @@ export namespace Cryptography {
         return createHash(algorithm).update(data).digest('hex')
     }
 
-    export function parseEncryptedData(data: string): ParsedEncryptedData {
+    function parseEncryptedData(data: string) {
         const splitPass = data.split('$')
         if (splitPass.length !== 4)
             throw new Error('Invalid encrypted data')

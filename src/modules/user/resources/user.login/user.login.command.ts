@@ -1,9 +1,20 @@
 import {createCommand} from "../../../../lib/command.ts";
-import type {UserLoginDTO, UserLoginResponseDTO} from "./user.login.dto.ts";
 import {getUserWithEmail} from "../../infra/user.repository.ts";
 import {HTTPException} from "hono/http-exception";
 import {Cryptography} from "../../../../lib/cryptography.ts";
 import {sign} from "hono/jwt";
+import type {DTO} from "../../../../lib/dto.ts";
+
+export type UserLoginDTO = DTO<{
+    email: string
+    password: string
+}>
+
+export type UserLoginResponseDTO = DTO<{
+    token: string
+    expiresIn: number
+    expiresAt: Date
+}>
 
 export const userLoginCommand = createCommand<UserLoginDTO, UserLoginResponseDTO>(
     async (dto) => {
