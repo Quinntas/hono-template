@@ -10,6 +10,6 @@ export function createUser(data: UserInsertModel) {
 export function getUserWithEmail(email: string) {
     return cache.it(
         `user:email:${email}`,
-        () => db.select().from(userTable).where(eq(userTable.email, email)),
+        db.select().from(userTable).where(eq(userTable.email, email)).execute,
     )
 }
